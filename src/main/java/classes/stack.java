@@ -8,7 +8,21 @@ package classes;
  *
  * @author carre
  */
-public class pila {
+public class stack {
     private Nodo top;
+    private int size;
+    public Nodo getTop() {
+        return top;
+    }
+
+    public int getSize(){
+        return this.getSize();
+    }
+
+    public stack() {
+        size = 0;
+        top = null;
+    }
+    
     
 }
