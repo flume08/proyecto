@@ -23,6 +23,13 @@ public class stack {
         size = 0;
         top = null;
     }
-    
-    
+    public void destructor(){
+        while(top != null){
+            Nodo temp = this.getTop();
+            this.top = getTop().getNext();
+        }
+    }
+    public boolean isEmpty(){
+        return size == 0;
+    }
 }
