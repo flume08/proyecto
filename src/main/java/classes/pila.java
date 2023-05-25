@@ -9,5 +9,6 @@ package classes;
  * @author carre
  */
 public class pila {
+    private Nodo top;
     
 }
