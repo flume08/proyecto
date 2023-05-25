@@ -15,4 +15,11 @@ public class queue {
         first = null;
         size =0;
     }
+    public int getFirst(){
+        return first.getElement();
+    }
+    public boolean isEmpty(){
+        return first == null;
+    }
+    
 }
