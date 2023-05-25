@@ -21,5 +21,14 @@ public class queue {
     public boolean isEmpty(){
         return first == null;
     }
-    
+    public void addToTheQueue(int x){
+        Nodo pNew = new Nodo(x);
+        pNew.setNext(this.first);
+        this.first = pNew;
+    }
+    public int unqueue(){
+        Nodo temp = first;
+        this.first = first.getNext();
+        return temp.getElement();
+    }
 }
