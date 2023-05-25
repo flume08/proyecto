@@ -32,4 +32,19 @@ public class stack {
     public boolean isEmpty(){
         return size == 0;
     }
+    public void pileUp(int x){
+        Nodo pNew = new Nodo(x);
+        pNew.setNext(this.top);
+        this.top = pNew;
+        size++;
+    }
+    public int unstack(){
+        Nodo temp = this.top;
+        this.top = this.top.getNext();
+        size--;
+        return temp.getElement();
+    }
+    public int peek(){
+        return this.top.getElement();
+    }
 }
