@@ -47,6 +47,7 @@ public class GraphMA{
         numEdges = numEdges + n;
         }
     }
+    
     public void imprimirTable () {
     System.out.println ("La matriz contiene " + numEdges + " vértices: \n");
     for (int i = 0; i < numEdges; i++) {
