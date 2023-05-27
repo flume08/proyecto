@@ -46,7 +46,7 @@ public class User {
     public void addRelation(int data, GraphMA x, int number){
         this.Relations.addAtTheEndInt(data);
         
-        x.insertEdge(this.getNumberOfRelation(), data, number);
+        x.insertArista(this.getNumberOfRelation(), data, number);
     }
     
 }
