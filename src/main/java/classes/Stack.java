@@ -8,7 +8,7 @@ package classes;
  *
  * @author carre
  */
-public class stack {
+public class Stack {
     private Nodo top;
     private int size;
     public Nodo getTop() {
@@ -16,10 +16,10 @@ public class stack {
     }
 
     public int getSize(){
-        return this.getSize();
+        return this.size;
     }
 
-    public stack() {
+    public Stack() {
         size = 0;
         top = null;
     }

@@ -24,13 +24,13 @@ public class GraphMA{
         numEdges = 0;
         matrixAdy = new int[n][n];
 }
-    public void insertEdge(int i, int j, int relationshipValue){
+    public void insertArista(int i, int j, int relationshipValue){
         matrixAdy [i][j] = relationshipValue;
         if (!directed){
             matrixAdy [j] [i] = matrixAdy [i] [j];
         }
     }
-    public void deleteEdge(int i, int j){
+    public void deleteArista(int i, int j){
         matrixAdy [i][j] = 0;
         if (!directed){
             matrixAdy [j] [i] = 0;
@@ -47,6 +47,7 @@ public class GraphMA{
         numEdges = numEdges + n;
         }
     }
+    
     public void imprimirTable () {
     System.out.println ("La matriz contiene " + numEdges + " vértices: \n");
     for (int i = 0; i < numEdges; i++) {
@@ -59,4 +60,39 @@ public class GraphMA{
         System.out.println("\n");
     }
     }
+    public boolean existeArista (int i, int j){
+        return matrixAdy [i] [j] != 0;
+    }
+
+    public int countIslands() {
+        int islandsCount = 0;
+        int rows = matrixAdy.length;
+        int cols = matrixAdy[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (matrixAdy[i][j] != 0 && !visited[i][j]) {
+                    islandsCount++;
+                    dfs(matrixAdy, visited, i, j);
+                }
+            }
+        }
+
+        return islandsCount;
+    }
+    private void dfs(int[][] graph, boolean[][] visited, int row, int col) {
+        int rows = graph.length;
+        int cols = graph[0].length;
+        if (row < 0 || row >= rows || col < 0 || col >= cols || graph[row][col] == 0 || visited[row][col]) {
+            return;
+        }
+        visited[row][col] = true; // Mark as visited
+        // Explore adjacent cells
+        dfs(graph, visited, row - 1, col); // Up
+        dfs(graph, visited, row + 1, col); // Down
+        dfs(graph, visited, row, col - 1); // Left
+        dfs(graph, visited, row, col + 1); // Right
+    }
+
 }

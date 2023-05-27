@@ -8,10 +8,10 @@ package classes;
  *
  * @author carre
  */
-public class queue {
+public class Queue {
     private Nodo first;
     int size;
-    public queue(){
+    public Queue(){
         first = null;
         size =0;
     }
