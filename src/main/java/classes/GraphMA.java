@@ -93,6 +93,10 @@ public class GraphMA{
         dfs(visited, row + 1, col); // Down
         dfs(visited, row, col - 1); // Left
         dfs(visited, row, col + 1); // Right
+        dfs(visited, row-1, col -1); // Top Right
+        dfs(visited, row-1, col + 1); // Top Left
+        dfs(visited, row+1, col-1); // Bottom Right
+        dfs(visited, row+1, col + 1); // Bottom Right
     }
  public int countIslandsbfs() {
         int islandCount = 0;
