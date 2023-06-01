@@ -104,7 +104,7 @@ public class GraphMA{
         int cols = this.matrixAdy[0].length;
         boolean[][] visited = new boolean[rows][cols];
 
-        int[][] offsets = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}}; // Neighboring cell offsets
+        int[][] offsets = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {1,1}, {1,-1},{-1,1},{-1,-1}}; // Neighboring cell offsets
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -143,5 +143,22 @@ public class GraphMA{
             }
         }
     }
-
+     public void  findBridges(){
+        int islands = countIslandsdfs();
+        int rows = this.matrixAdy.length;
+        int cols = this.matrixAdy[0].length;
+         for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (this.matrixAdy [i][j] !=0){
+                    int temp = this.matrixAdy [i][j]; 
+                    this.matrixAdy [i][j] = 0;
+                    int islandstemp = this.countIslandsdfs();
+                    if (islands != islandstemp){
+                        System.out.println("La arista de coordenadas: " + i + "," + j+ " es un puente");
+                    this.matrixAdy [i][j] = temp;    
+                    }
+                    
+                }
+            }}
+    }
 }
