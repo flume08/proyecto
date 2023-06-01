@@ -64,7 +64,7 @@ public class GraphMA{
         return matrixAdy [i] [j] != 0;
     }
 
-    public int countIslands() {
+    public int countIslandsdfs() {
         int islandsCount = 0;
         int rows = matrixAdy.length;
         int cols = matrixAdy[0].length;
@@ -74,25 +74,91 @@ public class GraphMA{
             for (int j = 0; j < cols; j++) {
                 if (matrixAdy[i][j] != 0 && !visited[i][j]) {
                     islandsCount++;
-                    dfs(matrixAdy, visited, i, j);
+                    dfs(visited, i, j);
                 }
             }
         }
 
         return islandsCount;
     }
-    private void dfs(int[][] graph, boolean[][] visited, int row, int col) {
-        int rows = graph.length;
-        int cols = graph[0].length;
-        if (row < 0 || row >= rows || col < 0 || col >= cols || graph[row][col] == 0 || visited[row][col]) {
+    private void dfs(boolean[][] visited, int row, int col) {
+        int rows = this.matrixAdy.length;
+        int cols = this.matrixAdy[0].length;
+        if (row < 0 || row >= rows || col < 0 || col >= cols || this.matrixAdy[row][col] == 0 || visited[row][col]) {
             return;
         }
         visited[row][col] = true; // Mark as visited
         // Explore adjacent cells
-        dfs(graph, visited, row - 1, col); // Up
-        dfs(graph, visited, row + 1, col); // Down
-        dfs(graph, visited, row, col - 1); // Left
-        dfs(graph, visited, row, col + 1); // Right
+        dfs(visited, row - 1, col); // Up
+        dfs(visited, row + 1, col); // Down
+        dfs(visited, row, col - 1); // Left
+        dfs(visited, row, col + 1); // Right
+        dfs(visited, row-1, col -1); // Top Right
+        dfs(visited, row-1, col + 1); // Top Left
+        dfs(visited, row+1, col-1); // Bottom Right
+        dfs(visited, row+1, col + 1); // Bottom Right
+    }
+ public int countIslandsbfs() {
+        int islandCount = 0;
+        int rows = this.matrixAdy.length;
+        int cols = this.matrixAdy[0].length;
+        boolean[][] visited = new boolean[rows][cols];
+
+        int[][] offsets = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {1,1}, {1,-1},{-1,1},{-1,-1}}; // Neighboring cell offsets
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (this.matrixAdy[i][j] > 1 && !visited[i][j]) {
+                    islandCount++;
+                    bfs(visited, i, j, offsets);
+                }
+            }
+        }
+
+        return islandCount;
     }
 
+    private void bfs(boolean[][] visited, int row, int col, int[][] offsets) {
+        int rows = this.matrixAdy.length;
+        int cols = this.matrixAdy[0].length;
+        Queue queue = new Queue();
+        int vertex = row * cols + col; // Convert 2D coordinates to 1D representation
+        queue.addToTheQueue(vertex);
+        visited[row][col] = true;
+
+        while (!queue.isEmpty()) {
+            int curr = queue.unqueue();
+            int currRow = curr / cols;
+            int currCol = curr % cols;
+
+            for (int[] offset : offsets) {
+                int newRow = currRow + offset[0];
+                int newCol = currCol + offset[1];
+
+                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && this.matrixAdy[newRow][newCol] >0 && !visited[newRow][newCol]) {
+                    int newVertex = newRow * cols + newCol; // Convert 2D coordinates to 1D representation
+                    queue.addToTheQueue(newVertex);
+                    visited[newRow][newCol] = true;
+                }
+            }
+        }
+    }
+     public void  findBridges(){
+        int islands = countIslandsdfs();
+        int rows = this.matrixAdy.length;
+        int cols = this.matrixAdy[0].length;
+         for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (this.matrixAdy [i][j] !=0){
+                    int temp = this.matrixAdy [i][j]; 
+                    this.matrixAdy [i][j] = 0;
+                    int islandstemp = this.countIslandsdfs();
+                    if (islands != islandstemp){
+                        System.out.println("La arista de coordenadas: " + i + "," + j+ " es un puente");
+                    this.matrixAdy [i][j] = temp;    
+                    }
+                    
+                }
+            }}
+    }
 }
