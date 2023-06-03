@@ -34,6 +34,12 @@ public class VisualizeGraph extends javax.swing.JFrame {
         cosmeticItem = new javax.swing.JPanel();
         GraphVisualizeBackground = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        backToMainMenuButton1 = new javax.swing.JButton();
+        identifyBridgesButton = new javax.swing.JButton();
+        bfsAmountOfIslesButton = new javax.swing.JButton();
+        dfsAmountOfIslesOutput = new javax.swing.JLabel();
+        bfsAmountOfIslesOutput = new javax.swing.JLabel();
+        dfsAmountOfIslesButton = new javax.swing.JButton();
         toGraphOperationsButton = new javax.swing.JButton();
         backToMainMenuButton = new javax.swing.JButton();
 
@@ -75,10 +81,90 @@ public class VisualizeGraph extends javax.swing.JFrame {
         GraphVisualizeBackground.setBorder(new javax.swing.border.MatteBorder(null));
         GraphVisualizeBackground.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Amount of isles:");
-        GraphVisualizeBackground.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 20, -1, -1));
+        GraphVisualizeBackground.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 130, 30));
+
+        backToMainMenuButton1.setBackground(new java.awt.Color(204, 204, 204));
+        backToMainMenuButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        backToMainMenuButton1.setForeground(new java.awt.Color(0, 0, 0));
+        backToMainMenuButton1.setText("Main Menu");
+        backToMainMenuButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        backToMainMenuButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        backToMainMenuButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                backToMainMenuButton1MouseClicked(evt);
+            }
+        });
+        backToMainMenuButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backToMainMenuButton1ActionPerformed(evt);
+            }
+        });
+        GraphVisualizeBackground.add(backToMainMenuButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 130, 50));
+
+        identifyBridgesButton.setBackground(new java.awt.Color(153, 255, 153));
+        identifyBridgesButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        identifyBridgesButton.setForeground(new java.awt.Color(0, 0, 0));
+        identifyBridgesButton.setText("Indetify Bridges");
+        identifyBridgesButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        identifyBridgesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        identifyBridgesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                identifyBridgesButtonMouseClicked(evt);
+            }
+        });
+        identifyBridgesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                identifyBridgesButtonActionPerformed(evt);
+            }
+        });
+        GraphVisualizeBackground.add(identifyBridgesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 150, 40));
+
+        bfsAmountOfIslesButton.setBackground(new java.awt.Color(153, 255, 153));
+        bfsAmountOfIslesButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bfsAmountOfIslesButton.setForeground(new java.awt.Color(0, 0, 0));
+        bfsAmountOfIslesButton.setText("BFS");
+        bfsAmountOfIslesButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        bfsAmountOfIslesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        bfsAmountOfIslesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bfsAmountOfIslesButtonMouseClicked(evt);
+            }
+        });
+        bfsAmountOfIslesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bfsAmountOfIslesButtonActionPerformed(evt);
+            }
+        });
+        GraphVisualizeBackground.add(bfsAmountOfIslesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 50, 30));
+
+        dfsAmountOfIslesOutput.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        dfsAmountOfIslesOutput.setForeground(new java.awt.Color(51, 51, 51));
+        GraphVisualizeBackground.add(dfsAmountOfIslesOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 50, 30));
+
+        bfsAmountOfIslesOutput.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        bfsAmountOfIslesOutput.setForeground(new java.awt.Color(51, 51, 51));
+        GraphVisualizeBackground.add(bfsAmountOfIslesOutput, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, 50, 30));
+
+        dfsAmountOfIslesButton.setBackground(new java.awt.Color(153, 255, 153));
+        dfsAmountOfIslesButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        dfsAmountOfIslesButton.setForeground(new java.awt.Color(0, 0, 0));
+        dfsAmountOfIslesButton.setText("DFS");
+        dfsAmountOfIslesButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        dfsAmountOfIslesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dfsAmountOfIslesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dfsAmountOfIslesButtonMouseClicked(evt);
+            }
+        });
+        dfsAmountOfIslesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dfsAmountOfIslesButtonActionPerformed(evt);
+            }
+        });
+        GraphVisualizeBackground.add(dfsAmountOfIslesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 50, 30));
 
         background.add(GraphVisualizeBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 810, 500));
 
@@ -124,15 +210,47 @@ public class VisualizeGraph extends javax.swing.JFrame {
         graphOperations.setVisible(true);
     }//GEN-LAST:event_toGraphOperationsButtonActionPerformed
 
-    private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
+    private void identifyBridgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifyBridgesButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_backToMainMenuButtonActionPerformed
+    }//GEN-LAST:event_identifyBridgesButtonActionPerformed
+
+    private void identifyBridgesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_identifyBridgesButtonMouseClicked
+
+    }//GEN-LAST:event_identifyBridgesButtonMouseClicked
+
+    private void backToMainMenuButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToMainMenuButton1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backToMainMenuButton1MouseClicked
+
+    private void backToMainMenuButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backToMainMenuButton1ActionPerformed
 
     private void backToMainMenuButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backToMainMenuButtonMouseClicked
         Principal mainMenu = new Principal();
         this.setVisible(false);
         mainMenu.setVisible(true);
     }//GEN-LAST:event_backToMainMenuButtonMouseClicked
+
+    private void backToMainMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_backToMainMenuButtonActionPerformed
+
+    private void bfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bfsAmountOfIslesButtonMouseClicked
+
+    private void bfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bfsAmountOfIslesButtonActionPerformed
+
+    private void dfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dfsAmountOfIslesButtonMouseClicked
+
+    private void dfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dfsAmountOfIslesButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,8 +290,14 @@ public class VisualizeGraph extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel GraphVisualizeBackground;
     private javax.swing.JButton backToMainMenuButton;
+    private javax.swing.JButton backToMainMenuButton1;
     private javax.swing.JPanel background;
+    private javax.swing.JButton bfsAmountOfIslesButton;
+    private javax.swing.JLabel bfsAmountOfIslesOutput;
     private javax.swing.JPanel cosmeticItem;
+    private javax.swing.JButton dfsAmountOfIslesButton;
+    private javax.swing.JLabel dfsAmountOfIslesOutput;
+    private javax.swing.JButton identifyBridgesButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel matrixVisualizeBox;
     private javax.swing.JButton toGraphOperationsButton;
