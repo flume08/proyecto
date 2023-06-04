@@ -15,7 +15,9 @@ import javax.swing.JOptionPane;
  * @author kraik
  */
 public class Principal extends javax.swing.JFrame {
-    
+    public static GraphMA globalGraph;
+    public static List globalUsersList;
+    public static List globalRelationsList;
     /**
      * Creates new form Principal
      */
@@ -163,9 +165,7 @@ public class Principal extends javax.swing.JFrame {
 
         return graph;}
     private void continueWithoutImportingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonActionPerformed
-        VisualizeGraph graphVisualzer = new VisualizeGraph();
-        this.setVisible(false);
-        graphVisualzer.setVisible(true);
+
     }//GEN-LAST:event_continueWithoutImportingButtonActionPerformed
 
     private void continueWithoutImportingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonMouseClicked
@@ -178,6 +178,12 @@ public class Principal extends javax.swing.JFrame {
         relationsList.print();
         GraphMA graph = initializeGraph(usersList, relationsList);
         graph.imprimirTable();
+        globalGraph = graph;
+        globalUsersList = usersList;
+        globalRelationsList = relationsList;
+        VisualizeGraph graphVisualzer = new VisualizeGraph();
+        this.setVisible(false);
+        graphVisualzer.setVisible(true);
     }//GEN-LAST:event_continueWithoutImportingButtonMouseClicked
 
     private void importFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importFileButtonActionPerformed
@@ -193,6 +199,9 @@ public class Principal extends javax.swing.JFrame {
         List usersList = list[0];
         List relationsList = list[1];
         GraphMA graph = initializeGraph(usersList, relationsList);
+        globalGraph = graph;
+        globalUsersList = usersList;
+        globalRelationsList = relationsList;
         graph.imprimirTable();
         VisualizeGraph graphVisualzer = new VisualizeGraph();
         this.setVisible(false);

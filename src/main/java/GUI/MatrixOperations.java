@@ -226,7 +226,7 @@ public class MatrixOperations extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserButtonActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_addUserButtonActionPerformed
 
     private void addRelationButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addRelationButtonActionPerformed

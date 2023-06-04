@@ -4,16 +4,17 @@
  * and open the template in the editor.
  */
 package GUI;
+import classes.*;
 /**
  *
  * @author kraik
  */
 public class VisualizeGraph extends javax.swing.JFrame {
-
     /**
      * Creates new form VisualizeGraph
      */
     public VisualizeGraph() {
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
