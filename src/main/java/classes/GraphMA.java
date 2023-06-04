@@ -53,7 +53,7 @@ public class GraphMA{
     for (int i = 0; i < numEdges; i++) {
         for (int j = 0; j < numEdges; j++) {
             if (matrixAdy [i] [j] !=0){
-            System.out.print (matrixAdy [i][j]);}
+            System.out.print (matrixAdy [i][j] + " ");}
             else {System.out.print ("0 ");
             }
         }
