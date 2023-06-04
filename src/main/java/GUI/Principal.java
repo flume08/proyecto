@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import classes.*;
 import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -133,7 +134,16 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private GraphMA initializeGraph(List<User> users, List<int []> relations){
+        GraphMA graph = new GraphMA(40,false);
+        for(int i=0;i < users.getSize();i++){
+            graph.insertaVertice(i);
+        }
+        for(int i=0;i < relations.getSize();i++){
+            graph.insertArista((relations.accessElement(i))[0],(relations.accessElement(i))[1],(relations.accessElement(i))[2]);
+        }
+      return graph;  
+    }
     private void continueWithoutImportingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonActionPerformed
         VisualizeGraph graphVisualzer = new VisualizeGraph();
         this.setVisible(false);
