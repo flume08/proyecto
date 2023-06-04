@@ -145,7 +145,8 @@ public class GraphMA{
             }
         }
     }
-     public void  findBridges(){
+     public List<int []>  findBridges(){
+        List <int []> list = new List<>();
         int islands = countIslandsdfs();
         int rows = this.matrixAdy.length;
         int cols = this.matrixAdy[0].length;
@@ -156,11 +157,13 @@ public class GraphMA{
                     this.matrixAdy [i][j] = 0;
                     int islandstemp = this.countIslandsdfs();
                     if (islands != islandstemp){
-                        System.out.println("La arista de coordenadas: " + i + "," + j+ " es un puente");
+                        int [] coords = {i,j};
+                        list.addAtTheEndT(coords);
                     this.matrixAdy [i][j] = temp;    
                     }
                     
                 }
             }}
-    }
+    return list;
+     }
 }
