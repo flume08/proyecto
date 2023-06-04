@@ -236,7 +236,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private Graph<Integer, DefaultWeightedEdge> duplicateGraph(){
+    static Graph<Integer, DefaultWeightedEdge> duplicateGraph(){
         Graph<Integer, DefaultWeightedEdge> graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);         
         for(int j=0;j < Principal.globalUsersList.getSize();j++){
              User user = (User) Principal.globalUsersList.accessElement(j);
@@ -244,14 +244,41 @@ public class VisualizeGraph extends javax.swing.JFrame {
         }
         for(int j=0;j < Principal.globalRelationsList.getSize();j++){
              int [] relation = (int []) Principal.globalRelationsList.accessElement(j);
+             System.out.println(relation[0]);
+             System.out.println(relation[1]);
              DefaultWeightedEdge edge = graph.addEdge(relation[0],relation[1]);
              graph.setEdgeWeight(edge, relation[2]);
         }
         return graph;
     }
     private void VisualizeGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizeGraphButtonActionPerformed
-        GraphWindow graphWindow = new GraphWindow();
-        graphWindow.setVisible(true);
+        Graph<Integer, DefaultWeightedEdge> graph;
+        graph = VisualizeGraph.duplicateGraph();
+        // Convert JGraphT graph to JGraphX graph
+        JGraphXAdapter<Integer, DefaultWeightedEdge> jgxAdapter = new JGraphXAdapter<>(graph);
+        // Apply a layout algorithm to the graph
+        mxCircleLayout layout = new mxCircleLayout(jgxAdapter);
+        layout.execute(jgxAdapter.getDefaultParent());
+
+        // Create a Swing component to display the graph
+        mxGraphComponent component = new mxGraphComponent(jgxAdapter);
+
+        // Create a JFrame to hold the component
+        JFrame frame = new JFrame();
+        frame.getContentPane().add(component);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
+        // Export the graph as an image
+        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 2, Color.WHITE, true, null);
+        File outputFile = new File("graph.png");
+        try {
+            ImageIO.write(image, "png", outputFile);
+            System.out.println("Graph image saved to: " + outputFile.getAbsolutePath());
+        } catch (IOException e) {
+            System.out.println("Error saving graph image: " + e.getMessage());
+        }
     }//GEN-LAST:event_VisualizeGraphButtonActionPerformed
 
     private void identifyBridgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifyBridgesButtonActionPerformed
