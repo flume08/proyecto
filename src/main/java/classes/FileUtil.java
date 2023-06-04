@@ -39,7 +39,7 @@ public void EscribirTxt(List x){
 }
 
 public void leer_txt(String pat){
-    List<User> x = new List();
+    List x = new List();
     List p = new List();
     String line="";
     String users_txt="";
@@ -66,7 +66,7 @@ public void leer_txt(String pat){
                 for (int i =0; i<users_split.length; i++){
                     String[] user=users_split[i].split(",");
                     User u= new User(user[0], Integer.parseInt(user[i]));
-                    Nodo<User> n = new Nodo(u);
+                    Nodo n = new Nodo(u);
                     
                     x.addAtTheEnd(n);
                 }
