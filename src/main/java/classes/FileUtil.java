@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
  */
 public class FileUtil {
     
-public void EscribirTxt(UserList x){
+public void EscribirTxt(List x){
     String usuarios_actuales="";
     if(!x.isEmpty()){
-        NodoUser temp= x.first();
-        for (int i=0;i<x.size;i++){
-            usuarios_actuales += temp.getElement().getUsername()+","+temp.getElement().getNumberOfRelation()+"\n";
+        Nodo temp= x.first();
+        for (int i=0;i<x.getSize();i++){
+            usuarios_actuales += temp.getElement()+","+temp.getElement()+"\n";
             temp=temp.getNext();
         }
     }
@@ -38,12 +38,13 @@ public void EscribirTxt(UserList x){
     
 }
 
-public void leer_txt(){
-    UserList x = new UserList();
+public void leer_txt(String pat){
+    List x = new List();
+    List p = new List();
     String line="";
     String users_txt="";
     String relations_txt="";
-    String path="test\\text.txt";
+    String path=pat;
     File file = new File(path);
     try{
         if(!file.exists()){
@@ -65,7 +66,7 @@ public void leer_txt(){
                 for (int i =0; i<users_split.length; i++){
                     String[] user=users_split[i].split(",");
                     User u= new User(user[0], Integer.parseInt(user[i]));
-                    NodoUser n = new NodoUser(u);
+                    Nodo n = new Nodo(u);
                     
                     x.addAtTheEnd(n);
                 }
@@ -75,6 +76,7 @@ public void leer_txt(){
                 String[] relations_split= relations_txt.split("\n");
                 for (int i =0; i<relations_split.length; i++){
                     String[] relation=relations_split[i].split(",");
+                    p.addAtTheEndT(relation);
                     
                     
                 }
