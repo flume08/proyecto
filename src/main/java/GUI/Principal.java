@@ -151,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private GraphMA initializeGraph(List<User> users, List<int []> relations){
-        GraphMA graph = new GraphMA(40,false);
+        GraphMA graph = new GraphMA(users.getSize(),false);
         for(int i=0;i < users.getSize();i++){
             graph.insertaVertice(i);
         }
