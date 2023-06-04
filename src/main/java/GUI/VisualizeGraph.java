@@ -3,8 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
+
 package GUI;
 import classes.*;
+import com.mxgraph.layout.mxCircleLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.view.mxStylesheet;
+import org.jgrapht.Graph;
+import org.jgrapht.ext.JGraphXAdapter;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleGraph;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import org.jgrapht.graph.DefaultWeightedEdge;
+import org.jgrapht.graph.SimpleWeightedGraph;
 /**
  *
  * @author kraik
@@ -217,7 +236,19 @@ public class VisualizeGraph extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private Graph<Integer, DefaultWeightedEdge> duplicateGraph(){
+        Graph<Integer, DefaultWeightedEdge> graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);         
+        for(int j=0;j < Principal.globalUsersList.getSize();j++){
+             User user = (User) Principal.globalUsersList.accessElement(j);
+             graph.addVertex(user.getNumberOfRelation());
+        }
+        for(int j=0;j < Principal.globalRelationsList.getSize();j++){
+             int [] relation = (int []) Principal.globalRelationsList.accessElement(j);
+             DefaultWeightedEdge edge = graph.addEdge(relation[0],relation[1]);
+             graph.setEdgeWeight(edge, relation[2]);
+        }
+        return graph;
+    }
     private void VisualizeGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizeGraphButtonActionPerformed
         GraphWindow graphWindow = new GraphWindow();
         graphWindow.setVisible(true);
