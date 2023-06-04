@@ -30,7 +30,7 @@ public class GraphMA{
      * Crea un nuevo objeto GraphMA con un número máximo de nodos especificado.
      *
      * @param n        el número máximo de nodos en el grafo
-     * @param directed indica si el grafo es dirigido (true) o no dirigido (false)
+     * @param d indica si el grafo es dirigido (true) o no dirigido (false)
      */
     public GraphMA (int n, boolean d) {
         directed = d;
@@ -77,6 +77,40 @@ public class GraphMA{
         matrixAdy [i] [j] = matrixAdy [j] [i] = 0;
         }
         numEdges = numEdges + n;
+        }
+    }
+    /**
+     * Eliminar un vertice especifico del grafo.
+     *
+     * @param n el número de vértice a insertar
+     */
+     public void eliminarVertice(int vertice) {
+        if (vertice >= 0 && vertice < numEdges) {
+            // Eliminar la columna correspondiente al vértice
+            for (int i = vertice; i < numEdges - 1; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    matrixAdy[j][i] = matrixAdy[j][i + 1];
+                }
+            }
+
+            // Eliminar la fila correspondiente al vértice
+            for (int i = vertice; i < numEdges - 1; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    matrixAdy[i][j] = matrixAdy[i + 1][j];
+                }
+            }
+
+            // Actualizar el número de vértices y la matriz de adyacencia
+            numEdges--;
+            int[][] nuevaMatriz = new int[numEdges][numEdges];
+            for (int i = 0; i < numEdges; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    nuevaMatriz[i][j] = matrixAdy[i][j];
+                }
+            }
+            matrixAdy = nuevaMatriz;
+        } else {
+            System.out.println("Índice de vértice inválido.");
         }
     }
     /**
