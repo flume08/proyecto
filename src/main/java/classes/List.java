@@ -8,7 +8,7 @@ package classes;
  *
  * @author carre
  */
-public class List { 
+public class List<T> { 
     private Nodo first; 
     private Nodo last; 
     private int size; 
@@ -34,7 +34,7 @@ public class List {
     public Nodo last(){
         return this.last;
     }
-    public int accessElement(int index){
+    public Object accessElement(int index){
         if (index==0 || index == -size){
             return this.first.getElement();
         }else{
@@ -51,7 +51,7 @@ public class List {
         }
         }
         System.out.println("Index out of range");
-        return 0;
+        return null;
         
     }
     public Nodo accessElementNodo(int index){
@@ -88,7 +88,7 @@ public class List {
             }
         }
     }
-    public void insertAtTheStart(int x){
+    public void insertAtTheStart(T x){
         Nodo newNodo = new Nodo(x);
         if (!(this.last == this.first))
         {
@@ -111,7 +111,7 @@ public class List {
         }        
         size++;    
     }
-    public void addAtTheEndInt(int x){
+    public void addAtTheEndT(T x){
         Nodo newNodo = new Nodo(x);
         if(this.isEmpty()){            
             first = last = newNodo;        }
@@ -189,13 +189,13 @@ public class List {
     public List revertList(){
         List revertedList = new List();
         for(int i= this.getSize(); i > 0;i--){
-        int x = this.accessElement(i);
+        Object x = this.accessElement(i);
         Nodo temp = new Nodo(x);
         revertedList.addAtTheEnd(temp);
         }
         return revertedList;
     }
-    public void deleteIntN(int x){
+    public void deleteIntN(T x){
         int i = 0;
         while(i<this.size){
         if (x == this.accessElement(i))
@@ -219,12 +219,12 @@ public class List {
                     k++;
                 }
                 j++;
-            }list.addAtTheEndInt(k);
+            }list.addAtTheEndT(k);
                 list2.deleteIntN(list2.accessElement(i));
         }
         return list;
     }
-    public void changeNforV(int n, int v){
+    public void changeNforV(Object n, int v){
         int i = 0;
         while(i<size){
             if (this.accessElement(i)== n){
@@ -234,20 +234,12 @@ public class List {
         }
     }
     public void switchPositions (int index1, int index2){
-        int temp;
+        Object temp;
         temp = this.accessElement(index1);
         this.accessElementNodo(index1).setElement(this.accessElement(index2));
         this.accessElementNodo(index2).setElement(temp);
     }
-    public void bubbleSort(){
-        for(int i=0; i<size-1; i++){
-            for (int j=0; j<size-1;j++){
-                if(this.accessElement(j) > this.accessElement(j+1)){
-                    this.switchPositions(j, j+1);
-                }
-            }
-        }
-    }
+    
     public int solution(List list1, List list2){
         int siz;
         int l = 0;

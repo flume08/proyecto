@@ -2,72 +2,40 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-/**
- *
- * @author Luis Carreño
- */
 package classes;
 
 /**
- * Esta clase representa un grafo implementado mediante una matriz de adyacencia.
- * Puede ser utilizado para representar grafos dirigidos o no dirigidos.
+ *
+ * @author carre
  */
 public class GraphMA{
     private boolean directed;
     private int maxNodes;
     private int numEdges;
     private int [][] matrixAdy;
- /**
-     * Crea un nuevo objeto GraphMA.
-     *
-     * @param directed indica si el grafo es dirigido (true) o no dirigido (false)
-     */
+
     public GraphMA(boolean directed) {
         this.directed = directed;
         maxNodes = numEdges = 0;
     }
-     /**
-     * Crea un nuevo objeto GraphMA con un número máximo de nodos especificado.
-     *
-     * @param n        el número máximo de nodos en el grafo
-     * @param d indica si el grafo es dirigido (true) o no dirigido (false)
-     */
     public GraphMA (int n, boolean d) {
         directed = d;
         maxNodes = n;
         numEdges = 0;
         matrixAdy = new int[n][n];
 }
-    /**
-     * Inserta una arista entre dos nodos del grafo con un valor de relación dado.
-     *
-     * @param i                el primer nodo de la arista
-     * @param j                el segundo nodo de la arista
-     * @param relationshipValue el valor de relación entre los nodos
-     */
     public void insertArista(int i, int j, int relationshipValue){
         matrixAdy [i][j] = relationshipValue;
         if (!directed){
             matrixAdy [j] [i] = matrixAdy [i] [j];
         }
     }
-     /**
-     * Elimina una arista entre dos nodos del grafo.
-     *
-     * @param i el primer nodo de la arista
-     * @param j el segundo nodo de la arista
-     */
     public void deleteArista(int i, int j){
         matrixAdy [i][j] = 0;
         if (!directed){
             matrixAdy [j] [i] = 0;
         }
     }
-    /**
-     * Inserta un número específico de vértices en el grafo.
-     *
-     * @param n el número de vértices a insertar
-     */
     public void insertaVertice (int n) {
         if ( n > maxNodes - numEdges )
         System.out.println ("Error, se supera el número de nodos máximo");
@@ -79,43 +47,7 @@ public class GraphMA{
         numEdges = numEdges + n;
         }
     }
-    /**
-     * Eliminar un vertice especifico del grafo.
-     *
-     * @param n el número de vértice a insertar
-     */
-     public void eliminarVertice(int vertice) {
-        if (vertice >= 0 && vertice < numEdges) {
-            // Eliminar la columna correspondiente al vértice
-            for (int i = vertice; i < numEdges - 1; i++) {
-                for (int j = 0; j < numEdges; j++) {
-                    matrixAdy[j][i] = matrixAdy[j][i + 1];
-                }
-            }
-
-            // Eliminar la fila correspondiente al vértice
-            for (int i = vertice; i < numEdges - 1; i++) {
-                for (int j = 0; j < numEdges; j++) {
-                    matrixAdy[i][j] = matrixAdy[i + 1][j];
-                }
-            }
-
-            // Actualizar el número de vértices y la matriz de adyacencia
-            numEdges--;
-            int[][] nuevaMatriz = new int[numEdges][numEdges];
-            for (int i = 0; i < numEdges; i++) {
-                for (int j = 0; j < numEdges; j++) {
-                    nuevaMatriz[i][j] = matrixAdy[i][j];
-                }
-            }
-            matrixAdy = nuevaMatriz;
-        } else {
-            System.out.println("Índice de vértice inválido.");
-        }
-    }
-    /**
-     * Imprime la tabla de adyacencia del grafo.
-     */
+    
     public void imprimirTable () {
     System.out.println ("La matriz contiene " + numEdges + " vértices: \n");
     for (int i = 0; i < numEdges; i++) {
@@ -128,21 +60,10 @@ public class GraphMA{
         System.out.println("\n");
     }
     }
-    /**
-     * Verifica si existe una arista entre dos nodos del grafo.
-     *
-     * @param i el primer nodo de la arista
-     * @param j el segundo nodo de la arista
-     * @return true si existe una arista entre los nodos, false de lo contrario
-     */
     public boolean existeArista (int i, int j){
         return matrixAdy [i] [j] != 0;
     }
-    /**
-     * Cuenta el número de islas (componentes conectados) en el grafo utilizando el algoritmo DFS.
-     *
-     * @return el número de islas en el grafo
-     */
+
     public int countIslandsdfs() {
         int islandsCount = 0;
         int rows = matrixAdy.length;
@@ -160,13 +81,6 @@ public class GraphMA{
 
         return islandsCount;
     }
-    /**
-     * Realiza una búsqueda en profundidad (DFS) para explorar los nodos de una isla.
-     *
-     * @param visited la matriz de nodos visitados
-     * @param row     la fila actual
-     * @param col     la columna actual
-     */
     private void dfs(boolean[][] visited, int row, int col) {
         int rows = this.matrixAdy.length;
         int cols = this.matrixAdy[0].length;
@@ -184,11 +98,6 @@ public class GraphMA{
         dfs(visited, row+1, col-1); // Bottom Right
         dfs(visited, row+1, col + 1); // Bottom Right
     }
-    /**
-     * Cuenta el número de islas (componentes conectados) en el grafo utilizando el algoritmo BFS.
-     *
-     * @return el número de islas en el grafo
-     */
  public int countIslandsbfs() {
         int islandCount = 0;
         int rows = this.matrixAdy.length;
@@ -208,24 +117,19 @@ public class GraphMA{
 
         return islandCount;
     }
-/**
-     * Realiza una búsqueda en anchura (BFS) para explorar los nodos de una isla.
-     *
-     * @param visited la matriz de nodos visitados
-     * @param row     la fila actual
-     * @param col     la columna actual
-     * @param offsets los desplazamientos de las celdas adyacentes
-     */
+
     private void bfs(boolean[][] visited, int row, int col, int[][] offsets) {
         int rows = this.matrixAdy.length;
         int cols = this.matrixAdy[0].length;
-        Queue queue = new Queue();
+        Queue<Integer> queue = new Queue<Integer>();
         int vertex = row * cols + col; // Convert 2D coordinates to 1D representation
         queue.addToTheQueue(vertex);
         visited[row][col] = true;
 
         while (!queue.isEmpty()) {
-            int curr = queue.unqueue();
+            
+            int curr = (int)queue.unqueue();
+            
             int currRow = curr / cols;
             int currCol = curr % cols;
 
@@ -241,10 +145,6 @@ public class GraphMA{
             }
         }
     }
-    /**
-     * Encuentra los puentes en el grafo.
-     * Un puente es una arista cuya eliminación aumenta el número de islas en el grafo.
-     */
      public void  findBridges(){
         int islands = countIslandsdfs();
         int rows = this.matrixAdy.length;

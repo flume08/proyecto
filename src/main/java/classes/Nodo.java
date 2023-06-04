@@ -8,11 +8,11 @@ package classes;
  *
  * @author carre
  */
-public class Nodo {
+public class Nodo<T> {
     private Nodo next;
-    private int element;
+    private T element;
 
-    public Nodo(int element) {
+    public Nodo(T element) {
         this.next = null;
         this.element = element;
     }
@@ -34,14 +34,14 @@ public class Nodo {
     /**
      * @return the element
      */
-    public int getElement() {
+    public T getElement() {
         return element;
     }
 
     /**
      * @param element the element to set
      */
-    public void setElement(int element) {
+    public void setElement(T element) {
         this.element = element;
     }
 }
