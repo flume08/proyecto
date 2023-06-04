@@ -5,6 +5,7 @@
  */
 package GUI;
 
+import classes.*;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -30,6 +31,11 @@ public class MatrixOperations extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
+    }
+    
+    public boolean checkIfIdIsUnique(List<User> users) {
+        boolean flag = true;   
+        return true;
     }
 
     /**
@@ -320,11 +326,13 @@ public class MatrixOperations extends javax.swing.JFrame {
     }//GEN-LAST:event_addRelationButtonMouseClicked
 
     private void addUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addUserButtonMouseClicked
+        boolean flag = true;
         userInput = addUserInput.getText();
         if (!userInput.contains(", ")) {           
             addUserInput.setForeground(new java.awt.Color(153, 153, 153));
             addUserInput.setText(manageUserExample);
             JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
+            flag = false;
             
         } else {            
             String[] userInputArray = userInput.split(", ");
@@ -336,14 +344,16 @@ public class MatrixOperations extends javax.swing.JFrame {
                 addUserInput.setForeground(new java.awt.Color(153, 153, 153));
                 addUserInput.setText(manageUserExample);
                 JOptionPane.showMessageDialog(null, "Input before the separator must be a valid user code!");
+                flag = false;
             }
             
             if (userName.charAt(0) != '@') {
                 addUserInput.setForeground(new java.awt.Color(153, 153, 153));
                 addUserInput.setText(manageUserExample);
                 JOptionPane.showMessageDialog(null, "Username must start with @!");
-            }
-        }       
+                flag = false;
+            }        
+        } 
     }//GEN-LAST:event_addUserButtonMouseClicked
 
     private void deleteRelationInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRelationInputActionPerformed

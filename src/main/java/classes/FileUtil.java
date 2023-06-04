@@ -56,16 +56,19 @@ public List[] leer_txt(String pat){
                 if(!line.isEmpty()){
                     if (line.contains("@")){
                     users_txt+= line + "\n";
-                }else{
-                        relations_txt=line +"\n";
+                    }else if (line != "Usuarios" || line != "Relaciones"){
+                        relations_txt+=line + "\n";
                     }
                 }
             }
+            
+            String relations_txt_valid = relations_txt.substring(21, relations_txt.length());
+            
             if (!"".equals(users_txt)){
                 String[] users_split= users_txt.split("\n");
                 for (int i =0; i<users_split.length; i++){
-                    String[] user=users_split[i].split(",");
-                    User u= new User(user[0], Integer.parseInt(user[i]));
+                    String[] user=users_split[i].split(", ");
+                    User u= new User(user[1], Integer.parseInt(user[0]));
                     Nodo n = new Nodo(u);
 
                     x.addAtTheEnd(n);
@@ -73,10 +76,14 @@ public List[] leer_txt(String pat){
 
             }
             if (!"".equals(relations_txt)){
-                String[] relations_split= relations_txt.split("\n");
+                String[] relations_split= relations_txt_valid.split("\n");
                 for (int i =0; i<relations_split.length; i++){
-                    String[] relation=relations_split[i].split(",");
-                    p.addAtTheEndT(relation);
+                    String[] relation=relations_split[i].split(", ");
+                    int[] intRelations = new int[relation.length];
+                    for (int k = 0; k < intRelations.length; k++) {
+                        intRelations[k] = Integer.parseInt(relation[k]);
+                    }
+                    p.addAtTheEndT(intRelations);
 
 
                 }
@@ -86,6 +93,7 @@ public List[] leer_txt(String pat){
             JOptionPane.showMessageDialog(null, "Lectura exitosa");
         }
     }catch(Exception err){
+        System.out.println(err);
         JOptionPane.showMessageDialog(null, "Hubo un error");
     }
     List[] q = {x,p};

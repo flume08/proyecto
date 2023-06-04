@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author kraik
  */
 public class Principal extends javax.swing.JFrame {
-
+    
     /**
      * Creates new form Principal
      */
@@ -151,10 +151,10 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private GraphMA initializeGraph(List<User> users, List<int []> relations){
-        GraphMA graph = new GraphMA(40,false);
-        for(int i=0;i < users.getSize();i++){
-            graph.insertaVertice(i);
-        }
+        GraphMA graph = new GraphMA(users.getSize() ,false);
+        
+        graph.insertaVertice(users.getSize());
+        
         for (int i =0;i<relations.getSize();i++){
             int idx = relations.accessElement(i)[0];
             int idy = relations.accessElement(i)[1];
@@ -171,7 +171,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_continueWithoutImportingButtonActionPerformed
 
     private void continueWithoutImportingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonMouseClicked
-        // TODO add your handling code here:
+        List[] list = new List[2];
+        FileUtil fileUtil = new FileUtil();
+        list = fileUtil.leer_txt("C:\\Users\\kraik\\OneDrive\\Documentos\\GitHub\\proyecto\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
+        List usersList = list[0];
+        List relationsList = list[1];
+        usersList.print();
+        relationsList.print();
+        GraphMA graph = initializeGraph(usersList, relationsList);
+        graph.imprimirTable();
     }//GEN-LAST:event_continueWithoutImportingButtonMouseClicked
 
     private void importFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importFileButtonActionPerformed
@@ -180,6 +188,13 @@ public class Principal extends javax.swing.JFrame {
         File f = fileChooser.getSelectedFile();
         String fileName = f.getAbsolutePath();
         JOptionPane.showMessageDialog(null, fileName);
+        
+        List[] list = new List[2];
+        FileUtil fileUtil = new FileUtil();
+        list = fileUtil.leer_txt(fileName);
+        List usersList = list[0];
+        List relationsList = list[1];
+        GraphMA graph = initializeGraph(usersList, relationsList);
         
         VisualizeGraph graphVisualzer = new VisualizeGraph();
         this.setVisible(false);
