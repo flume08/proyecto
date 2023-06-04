@@ -4,6 +4,7 @@
 
 package com.mycompany.project1;
 
+import GUI.Principal;
 /**
  *
  * @author carre
@@ -11,6 +12,7 @@ package com.mycompany.project1;
 public class Project1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Principal startingWindow = new Principal();
+        startingWindow.setVisible(true);
     }
 }
