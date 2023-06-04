@@ -121,7 +121,7 @@ public class GraphMA{
     private void bfs(boolean[][] visited, int row, int col, int[][] offsets) {
         int rows = this.matrixAdy.length;
         int cols = this.matrixAdy[0].length;
-        Queue<Integer> queue = new Queue<Integer>();
+        Queue<Integer> queue = new Queue<>();
         int vertex = row * cols + col; // Convert 2D coordinates to 1D representation
         queue.addToTheQueue(vertex);
         visited[row][col] = true;
