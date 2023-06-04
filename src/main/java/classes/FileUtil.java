@@ -38,8 +38,8 @@ public void EscribirTxt(List x){
     
 }
 
-public void leer_txt(String pat){
-    List<User> x = new List();
+public List[] leer_txt(String pat){
+    List x = new List();
     List p = new List();
     String line="";
     String users_txt="";
@@ -66,21 +66,21 @@ public void leer_txt(String pat){
                 for (int i =0; i<users_split.length; i++){
                     String[] user=users_split[i].split(",");
                     User u= new User(user[0], Integer.parseInt(user[i]));
-                    Nodo<User> n = new Nodo(u);
-                    
+                    Nodo n = new Nodo(u);
+
                     x.addAtTheEnd(n);
                 }
-                
+
             }
             if (!"".equals(relations_txt)){
                 String[] relations_split= relations_txt.split("\n");
                 for (int i =0; i<relations_split.length; i++){
                     String[] relation=relations_split[i].split(",");
                     p.addAtTheEndT(relation);
-                    
-                    
+
+
                 }
-                
+
             }
             br.close(); 
             JOptionPane.showMessageDialog(null, "Lectura exitosa");
@@ -88,5 +88,7 @@ public void leer_txt(String pat){
     }catch(Exception err){
         JOptionPane.showMessageDialog(null, "Hubo un error");
     }
+    List[] q = {x,p};
+    return q;
 }
 }
