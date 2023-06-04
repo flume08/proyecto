@@ -76,7 +76,7 @@ public List[] leer_txt(String pat){
                 }
             }
             
-            String relations_txt_valid = relations_txt.substring(21, relations_txt.length());
+            String relations_txt_valid = relations_txt.substring(20, relations_txt.length());
             
             if (!"".equals(users_txt)){
                 String[] users_split= users_txt.split("\n");
