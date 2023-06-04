@@ -34,9 +34,9 @@ public class List<T> {
     public Nodo last(){
         return this.last;
     }
-    public Object accessElement(int index){
+    public T accessElement(int index){
         if (index==0 || index == -size){
-            return this.first.getElement();
+            return (T) this.first.getElement();
         }else{
         if(index> 0 && index <= this.size){
             int i = 0;
@@ -45,7 +45,7 @@ public class List<T> {
                 temp = temp.getNext();
                 i++;
             }
-            return temp.getElement();
+            return (T) temp.getElement();
         }else if(index<0 && index > -size){
             return this.accessElement(index + size);
         }

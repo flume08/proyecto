@@ -9,7 +9,7 @@ package classes;
  * @author carre
  */
 public class Nodo<T> {
-    private Nodo next;
+    private Nodo<T> next;
     private T element;
 
     public Nodo(T element) {
@@ -20,7 +20,7 @@ public class Nodo<T> {
     /**
      * @return the next
      */
-    public Nodo getNext() {
+    public Nodo<T> getNext() {
         return next;
     }
 
