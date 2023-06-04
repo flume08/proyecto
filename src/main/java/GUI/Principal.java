@@ -152,9 +152,7 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private GraphMA initializeGraph(List<User> users, List<int []> relations){
         GraphMA graph = new GraphMA(users.getSize() ,false);
-        
         graph.insertaVertice(users.getSize());
-        
         for (int i =0;i<relations.getSize();i++){
             int idx = relations.accessElement(i)[0];
             int idy = relations.accessElement(i)[1];
@@ -173,7 +171,7 @@ public class Principal extends javax.swing.JFrame {
     private void continueWithoutImportingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonMouseClicked
         List[] list = new List[2];
         FileUtil fileUtil = new FileUtil();
-        list = fileUtil.leer_txt("C:\\Users\\kraik\\OneDrive\\Documentos\\GitHub\\proyecto\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
+        list = fileUtil.leer_txt("mycompany\\project1\\test.txt");       
         List usersList = list[0];
         List relationsList = list[1];
         usersList.print();
@@ -195,7 +193,7 @@ public class Principal extends javax.swing.JFrame {
         List usersList = list[0];
         List relationsList = list[1];
         GraphMA graph = initializeGraph(usersList, relationsList);
-        
+        graph.imprimirTable();
         VisualizeGraph graphVisualzer = new VisualizeGraph();
         this.setVisible(false);
         graphVisualzer.setVisible(true);
