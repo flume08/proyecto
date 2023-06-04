@@ -244,8 +244,6 @@ public class VisualizeGraph extends javax.swing.JFrame {
         }
         for(int j=0;j < Principal.globalRelationsList.getSize();j++){
              int [] relation = (int []) Principal.globalRelationsList.accessElement(j);
-             System.out.println(relation[0]);
-             System.out.println(relation[1]);
              DefaultWeightedEdge edge = graph.addEdge(relation[0],relation[1]);
              graph.setEdgeWeight(edge, relation[2]);
         }
@@ -268,10 +266,11 @@ public class VisualizeGraph extends javax.swing.JFrame {
         frame.getContentPane().add(component);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
+        frame.setSize(500, 500);
         frame.setVisible(true);
 
         // Export the graph as an image
-        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 2, Color.WHITE, true, null);
+        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 20, Color.WHITE, true, null);
         File outputFile = new File("graph.png");
         try {
             ImageIO.write(image, "png", outputFile);

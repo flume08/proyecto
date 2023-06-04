@@ -177,7 +177,6 @@ public class Principal extends javax.swing.JFrame {
         usersList.print();
         relationsList.print();
         GraphMA graph = initializeGraph(usersList, relationsList);
-        graph.imprimirTable();
         globalGraph = graph;
         globalUsersList = usersList;
         globalRelationsList = relationsList;
@@ -202,7 +201,6 @@ public class Principal extends javax.swing.JFrame {
         globalGraph = graph;
         globalUsersList = usersList;
         globalRelationsList = relationsList;
-        graph.imprimirTable();
         VisualizeGraph graphVisualzer = new VisualizeGraph();
         this.setVisible(false);
         graphVisualzer.setVisible(true);
