@@ -3,7 +3,7 @@
  */
 
 package com.mycompany.project1;
-
+import classes.*;
 import GUI.Principal;
 /**
  *
@@ -16,5 +16,11 @@ public class Project1 {
         
         Principal startingWindow = new Principal();
         startingWindow.setVisible(true);
+        List x = new List();
+        
+        x.addAtTheEndT(Principal.globalUsersList);
+        x.addAtTheEndT(Principal.globalRelationsList);
+        FileUtil fileUtil = new FileUtil();
+        fileUtil.EscribirTxt(x);
     }
 }
