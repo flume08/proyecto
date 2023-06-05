@@ -3,27 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
-
 package GUI;
 import classes.*;
-import com.mxgraph.layout.mxCircleLayout;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.util.mxCellRenderer;
-import com.mxgraph.view.mxStylesheet;
-import org.jgrapht.Graph;
-import org.jgrapht.ext.JGraphXAdapter;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleGraph;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-//import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import org.jgrapht.graph.DefaultWeightedEdge;
-import org.jgrapht.graph.SimpleWeightedGraph;
 /**
  *
  * @author kraik
@@ -60,8 +41,8 @@ public class VisualizeGraph extends javax.swing.JFrame {
         bfsAmountOfIslesOutput = new javax.swing.JLabel();
         dfsAmountOfIslesButton = new javax.swing.JButton();
         VisualizeGraphButton = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        bridgesVisualizer = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        bridgesPrint = new javax.swing.JTextArea();
         backToMainMenuButton = new javax.swing.JButton();
         toGraphOperationsButton = new javax.swing.JButton();
 
@@ -142,7 +123,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
                 identifyBridgesButtonActionPerformed(evt);
             }
         });
-        GraphVisualizeBackground.add(identifyBridgesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 150, 40));
+        GraphVisualizeBackground.add(identifyBridgesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 150, 40));
 
         bfsAmountOfIslesButton.setBackground(new java.awt.Color(153, 255, 153));
         bfsAmountOfIslesButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -199,14 +180,13 @@ public class VisualizeGraph extends javax.swing.JFrame {
                 VisualizeGraphButtonActionPerformed(evt);
             }
         });
-        GraphVisualizeBackground.add(VisualizeGraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 190, 80));
+        GraphVisualizeBackground.add(VisualizeGraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 190, 80));
 
-        bridgesVisualizer.setBackground(new java.awt.Color(255, 255, 255));
-        bridgesVisualizer.setColumns(20);
-        bridgesVisualizer.setRows(5);
-        jScrollPane2.setViewportView(bridgesVisualizer);
+        bridgesPrint.setColumns(20);
+        bridgesPrint.setRows(5);
+        jScrollPane1.setViewportView(bridgesPrint);
 
-        GraphVisualizeBackground.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 250, 340));
+        GraphVisualizeBackground.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, -1, -1));
 
         background.add(GraphVisualizeBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 810, 500));
 
@@ -245,67 +225,29 @@ public class VisualizeGraph extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    static Graph<Integer, DefaultWeightedEdge> duplicateGraph(){
-        Graph<Integer, DefaultWeightedEdge> graph = new SimpleWeightedGraph<>(DefaultWeightedEdge.class);         
-        for(int j=0;j < Principal.globalUsersList.getSize();j++){
-             User user = (User) Principal.globalUsersList.accessElement(j);
-             graph.addVertex(user.getNumberOfRelation());
-        }
-        for(int j=0;j < Principal.globalRelationsList.getSize();j++){
-             int [] relation = (int []) Principal.globalRelationsList.accessElement(j);
-             DefaultWeightedEdge edge = graph.addEdge(relation[0],relation[1]);
-             graph.setEdgeWeight(edge, relation[2]);
-        }
-        return graph;
-    }
+
     private void VisualizeGraphButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VisualizeGraphButtonActionPerformed
-        Graph<Integer, DefaultWeightedEdge> graph;
-        graph = VisualizeGraph.duplicateGraph();
-        // Convert JGraphT graph to JGraphX graph
-        JGraphXAdapter<Integer, DefaultWeightedEdge> jgxAdapter = new JGraphXAdapter<>(graph);
-        // Apply a layout algorithm to the graph
-        mxCircleLayout layout = new mxCircleLayout(jgxAdapter);
-        layout.execute(jgxAdapter.getDefaultParent());
-
-        // Create a Swing component to display the graph
-        mxGraphComponent component = new mxGraphComponent(jgxAdapter);
-
-        // Create a JFrame to hold the component
-        JFrame frame = new JFrame();
-        frame.getContentPane().add(component);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setSize(500, 500);
-        frame.setVisible(true);
-
-        // Export the graph as an image
-        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 20, Color.WHITE, true, null);
-        File outputFile = new File("graph.png");
-        try {
-            ImageIO.write(image, "png", outputFile);
-            System.out.println("Graph image saved to: " + outputFile.getAbsolutePath());
-        } catch (IOException e) {
-            System.out.println("Error saving graph image: " + e.getMessage());
-        }
+        GraphWindow graphWindow = new GraphWindow();
+        graphWindow.setVisible(true);
     }//GEN-LAST:event_VisualizeGraphButtonActionPerformed
 
     private void identifyBridgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifyBridgesButtonActionPerformed
-        
+    List bridges= Principal.globalGraph.findBridges();
+    String q="";
+    List a = Principal.globalUsersList;
+    for (int i =0; i<bridges.getSize();i++){
+        int[] temp=(int[])bridges.accessElement(i);
+        int x;
+        int o;
+        x =(int) a.accessElement(temp[0]);
+        o= (int)a.accessElement(temp[1]);
+        q+="Users: "+x+","+o+"\n";
+    }
+    bridgesPrint.setText(q);
+// TODO add your handling code here:
     }//GEN-LAST:event_identifyBridgesButtonActionPerformed
 
     private void identifyBridgesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_identifyBridgesButtonMouseClicked
-        List bridges= Principal.globalGraph.findBridges();
-        String q="";
-        List a = Principal.globalUsersList;
-        for (int i =0; i<bridges.getSize();i++){
-            int[] temp=(int[])bridges.accessElement(i);
-            int x;
-            int o;
-            x =((User) a.accessElement(temp[0])).getNumberOfRelation();
-            o= ((User)a.accessElement(temp[1])).getNumberOfRelation();
-            q+="Users: "+x+","+o+"\n";
-        }
-        bridgesVisualizer.setText(q);
 
     }//GEN-LAST:event_identifyBridgesButtonMouseClicked
 
@@ -328,7 +270,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
 
     private void bfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonMouseClicked
-        bfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.countIslandsbfs()));
+        // TODO add your handling code here:
     }//GEN-LAST:event_bfsAmountOfIslesButtonMouseClicked
 
     private void bfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonActionPerformed
@@ -336,7 +278,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_bfsAmountOfIslesButtonActionPerformed
 
     private void dfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonMouseClicked
-        dfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.countIslandsdfs()));
+
     }//GEN-LAST:event_dfsAmountOfIslesButtonMouseClicked
 
     private void dfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonActionPerformed
@@ -392,13 +334,13 @@ public class VisualizeGraph extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton bfsAmountOfIslesButton;
     private javax.swing.JLabel bfsAmountOfIslesOutput;
-    private javax.swing.JTextArea bridgesVisualizer;
+    private javax.swing.JTextArea bridgesPrint;
     private javax.swing.JPanel cosmeticItem;
     private javax.swing.JButton dfsAmountOfIslesButton;
     private javax.swing.JLabel dfsAmountOfIslesOutput;
     private javax.swing.JButton identifyBridgesButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel matrixVisualizeBox;
     private javax.swing.JButton toGraphOperationsButton;
     // End of variables declaration//GEN-END:variables

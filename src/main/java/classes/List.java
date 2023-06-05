@@ -12,28 +12,49 @@ public class List<T> {
     private Nodo first; 
     private Nodo last; 
     private int size; 
-    
+    /**
+     * Constructor de la clase List.
+     * Inicializa una lista vacía.
+     */
     public List(){ 
             this.first = null; 
             this.last = null; 
             this.size = 0; 
     }
-    
+    /**
+     * Verifica si la lista está vacía.
+     * @return true si la lista está vacía, false de lo contrario.
+     */
     public boolean isEmpty(){
     return first == null; 
     }
-    
+    /**
+     * Vacía la lista, eliminando todos los elementos.
+     */
     public void empty(){            
         this.first = null;            
         this.last = null;            
         this.size = 0;
     }
+    /**
+     * Obtiene el primer nodo de la lista.
+     * @return El primer nodo de la lista.
+     */
     public Nodo first(){
         return this.first;
     }
+    /**
+     * Obtiene el último nodo de la lista.
+     * @return El último nodo de la lista.
+     */
     public Nodo last(){
         return this.last;
     }
+    /**
+     * Accede al elemento en la posición especificada.
+     * @param index La posición del elemento a acceder.
+     * @return El elemento en la posición especificada.
+     */
     public T accessElement(int index){
         if (index==0 || index == -size){
             return (T) this.first.getElement();
@@ -54,6 +75,11 @@ public class List<T> {
         return null;
         
     }
+     /**
+     * Accede al nodo en la posición especificada.
+     * @param index La posición del nodo a acceder.
+     * @return El nodo en la posición especificada.
+     */
     public Nodo accessElementNodo(int index){
         if (index==0 || index == -size){
             return this.first;
@@ -73,7 +99,12 @@ public class List<T> {
         System.out.println("Index out of range");
         return null;
         
-    }    
+    }  
+    /**
+     * Inserta un elemento en la posición especificada.
+     * @param x El elemento a insertar.
+     * @param pValor El nodo después del cual se insertará el elemento.
+     */
     public void insert(int x, Nodo pValor){
         Nodo newNodo = new Nodo(x);
         if (this.first()==this.last()){
@@ -88,6 +119,10 @@ public class List<T> {
             }
         }
     }
+    /**
+     * Inserta un elemento al inicio de la lista.
+     * @param x El elemento a insertar.
+     */
     public void insertAtTheStart(T x){
         Nodo newNodo = new Nodo(x);
         if (!(this.last == this.first))
@@ -102,6 +137,10 @@ public class List<T> {
         }
         size++;
     }
+    /**
+     * Agrega un nodo al final de la lista.
+     * @param newNodo El nodo a agregar.
+     */
     public void addAtTheEnd(Nodo newNodo){        
         if(this.isEmpty()){            
             first = last = newNodo;        }
@@ -111,6 +150,10 @@ public class List<T> {
         }        
         size++;    
     }
+     /**
+     * Agrega un elemento al final de la lista.
+     * @param x El elemento a agregar.
+     */
     public void addAtTheEndT(T x){
         Nodo newNodo = new Nodo(x);
         if(this.isEmpty()){            
@@ -121,6 +164,9 @@ public class List<T> {
         }        
         size++;    
     }
+    /**
+     * Elimina el primer nodo de la lista.
+     */
     public void deleteAtTheStart(){            
         if(!this.isEmpty()){                
             if (size == 1) {                    
@@ -132,11 +178,19 @@ public class List<T> {
             }            
         }        
     }
+    /**
+     * Avanza al siguiente nodo.
+     * @param pValue El nodo actual.
+     */
     public void next(Nodo pValue){
         if(pValue!=last()){
             pValue = pValue.getNext();
         }
     }
+    /**
+     * Elimina el nodo en la posición especificada.
+     * @param index La posición del nodo a eliminar.
+     */
     public void deleteIndex(int index){
         if (index == 0)
         {
@@ -157,6 +211,10 @@ public class List<T> {
         }
         size--;
     }
+    /**
+     * Elimina un nodo específico de la lista.
+     * @param pValue El nodo a eliminar.
+     */
     public void deleteNodo(Nodo pValue){
         if (pValue == first())
         {
@@ -173,6 +231,9 @@ public class List<T> {
         }
         size--;
     }
+     /**
+     * Imprime los elementos de la lista.
+     */
     public void print(){        
         Nodo temp = first; 
         if(this.isEmpty()){            
@@ -183,18 +244,17 @@ public class List<T> {
             temp = temp.getNext();        
         } 
     }
+    /**
+     * Obtiene el tamaño de la lista.
+     * @return El tamaño de la lista.
+     */
     public int getSize(){
         return this.size;
     }
-    public List revertList(){
-        List revertedList = new List();
-        for(int i= this.getSize(); i > 0;i--){
-        Object x = this.accessElement(i);
-        Nodo temp = new Nodo(x);
-        revertedList.addAtTheEnd(temp);
-        }
-        return revertedList;
-    }
+    /**
+     * Elimina todas las ocurrencias de un elemento en la lista.
+     * @param x El elemento a eliminar.
+     */
     public void deleteIntN(T x){
         int i = 0;
         while(i<this.size){
@@ -206,77 +266,9 @@ public class List<T> {
         i++;
         }
     }
-    public List countFrecuency(){
-        List list = new List();
-        List list2 = new List();
-        list2= this;
-        int i = 0;
-        while(i<list2.size){
-            int j = 0;
-            int k = 0;
-            while(j< size){
-                if(list2.accessElement(i)==list2.accessElement(j)){
-                    k++;
-                }
-                j++;
-            }list.addAtTheEndT(k);
-                list2.deleteIntN(list2.accessElement(i));
-        }
-        return list;
-    }
-    public void changeNforV(Object n, int v){
-        int i = 0;
-        while(i<size){
-            if (this.accessElement(i)== n){
-                this.accessElementNodo(i).setElement(v);
-            } 
-            i++;
-        }
-    }
-    public void switchPositions (int index1, int index2){
-        Object temp;
-        temp = this.accessElement(index1);
-        this.accessElementNodo(index1).setElement(this.accessElement(index2));
-        this.accessElementNodo(index2).setElement(temp);
-    }
     
-    public int solution(List list1, List list2){
-        int siz;
-        int l = 0;
-        int k = 0;
-        if (list1.getSize() < list2.getSize()){
-            siz = list2.getSize();
-            for(int i=0;i<list2.getSize()-siz;i++){
-                l = 0;
-                if (list1.first().getElement() == list2.accessElement(i)){
-                    k =0;
-                    for(int j =0;j<siz;j++){
-                        if(list1.accessElement(j) == list2.accessElement(i+j)){
-                        k++;
-                        }
-                    }
-                }
-                if(k==siz){
-                    l++;
-                }
-            }
-        }else{
-            siz = list1.getSize();
-            for(int i=0;i<list1.getSize()-siz;i++){
-                l = 0;
-                if (list2.first().getElement() == list1.accessElement(i)){
-                    k =0;
-                    for(int j =0;j<siz;j++){
-                        if(list2.accessElement(j) == list1.accessElement(i+j)){
-                        k++;
-                        }
-                    }
-                }
-                if(k==siz){
-                    l++;
-                }
-            }
-        }
-        return l;
-}
+    
+    
+    
+    
 }
