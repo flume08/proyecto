@@ -18,7 +18,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-//import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -279,7 +279,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
         frame.setVisible(true);
 
         // Export the graph as an image
-        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 20, Color.WHITE, true, null);
+        BufferedImage image = mxCellRenderer.createBufferedImage(jgxAdapter, null, 20,Color.WHITE, true, null);
         File outputFile = new File("graph.png");
         try {
             ImageIO.write(image, "png", outputFile);
@@ -328,7 +328,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
 
     private void bfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonMouseClicked
-        bfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.countIslandsbfs()));
+        bfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.contarIslas1()));
     }//GEN-LAST:event_bfsAmountOfIslesButtonMouseClicked
 
     private void bfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonActionPerformed
