@@ -10,8 +10,8 @@ package classes;
  */
 public class GraphMA{
     private boolean directed;
-    private int maxNodes;
-    private int numEdges;
+    public int maxNodes;
+    public int numEdges;
     public int [][] matrixAdy;
 /**
      * Crea un nuevo objeto GraphMA con la opción de grafo dirigido especificada.
@@ -73,6 +73,35 @@ public class GraphMA{
         matrixAdy [i] [j] = matrixAdy [j] [i] = 0;
         }
         numEdges = numEdges + n;
+        }
+    }
+    public void eliminarVertice(int vertice) {
+        if (vertice >= 0 && vertice < maxNodes) {
+            // Eliminar la columna correspondiente al vértice
+            for (int i = vertice; i < numEdges - 1; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    matrixAdy[j][i] = matrixAdy[j][i + 1];
+                }
+            }
+
+            // Eliminar la fila correspondiente al vértice
+            for (int i = vertice; i < numEdges - 1; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    matrixAdy[i][j] = matrixAdy[i + 1][j];
+                }
+            }
+
+            // Actualizar el número de vértices y la matriz de adyacencia
+            numEdges--;
+            int[][] nuevaMatriz = new int[numEdges][numEdges];
+            for (int i = 0; i < numEdges; i++) {
+                for (int j = 0; j < numEdges; j++) {
+                    nuevaMatriz[i][j] = matrixAdy[i][j];
+                }
+            }
+            matrixAdy = nuevaMatriz;
+        } else {
+            System.out.println("Índice de vértice inválido.");
         }
     }
     /**

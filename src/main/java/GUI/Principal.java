@@ -153,7 +153,7 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private GraphMA initializeGraph(List<User> users, List<int []> relations){
+    public GraphMA initializeGraph(List<User> users, List<int []> relations){
         GraphMA graph = new GraphMA(users.getSize() ,false);
         graph.insertaVertice(users.getSize());
         for (int i =0;i<relations.getSize();i++){
@@ -172,7 +172,7 @@ public class Principal extends javax.swing.JFrame {
     private void continueWithoutImportingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonMouseClicked
         List[] list = new List[2];
         FileUtil fileUtil = new FileUtil();
-        list = fileUtil.leer_txt("C:\\Users\\carre\\Documents\\NetBeansProjects\\project1\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
+        list = fileUtil.leer_txt("project1\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
         List usersList = list[0];
         List relationsList = list[1];
         GraphMA graph = initializeGraph(usersList, relationsList);

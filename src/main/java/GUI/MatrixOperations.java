@@ -363,7 +363,18 @@ public class MatrixOperations extends javax.swing.JFrame {
             if (banner) {
                 User user = new User(userName, userCode);
                 Principal.globalUsersList.addAtTheEndT(user);
-                Principal.globalGraph.insertaVertice(Principal.globalUsersList.getSize());
+                for(int j=0;j < Principal.globalUsersList.getSize();j++){
+                if (user.getNumberOfRelation() == ((User) (Principal.globalUsersList.accessElement(j))).getNumberOfRelation()){
+                    Principal.globalGraph.eliminarVertice(j);
+                    Principal.globalUsersList.deleteIndex(j);
+                    }
+                
+                }
+               for(int i=0; i < Principal.globalRelationsList.getSize(); i++){
+                    if(user.getNumberOfRelation() == ((int []) (Principal.globalRelationsList.accessElement(i)))[0] ||user.getNumberOfRelation() == ((int []) (Principal.globalUsersList.accessElement(i)))[1] ){
+                       Principal.globalRelationsList.deleteIndex(i);
+                    }
+                }
             }
         }
             
@@ -460,7 +471,15 @@ public class MatrixOperations extends javax.swing.JFrame {
             if (banner) {
                 User user = new User(userName, userCode);
                 Principal.globalUsersList.addAtTheEndT(user);
-                Principal.globalGraph.insertaVertice(Principal.globalUsersList.getSize());
+                int [] [] g = new int [Principal.globalGraph.numEdges+1] [Principal.globalGraph.numEdges+1];
+                for (int i=0; i < Principal.globalGraph.numEdges; i++) {
+                    for(int j = 0; j < Principal.globalGraph.numEdges ; j++)
+                    {g[i][j] = Principal.globalGraph.matrixAdy[i][j];}
+                    
+                }
+
+                Principal.globalGraph.matrixAdy = g;
+                Principal.globalGraph.maxNodes ++;
             }
         }
     }//GEN-LAST:event_addUserButtonMouseClicked
