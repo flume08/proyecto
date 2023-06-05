@@ -175,8 +175,6 @@ public class Principal extends javax.swing.JFrame {
         list = fileUtil.leer_txt("C:\\Users\\carre\\Documents\\NetBeansProjects\\project1\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
         List usersList = list[0];
         List relationsList = list[1];
-        usersList.print();
-        relationsList.print();
         GraphMA graph = initializeGraph(usersList, relationsList);
         globalGraph = graph;
         globalUsersList = usersList;

@@ -12,7 +12,7 @@ public class GraphMA{
     private boolean directed;
     private int maxNodes;
     private int numEdges;
-    private int [][] matrixAdy;
+    public int [][] matrixAdy;
 /**
      * Crea un nuevo objeto GraphMA con la opción de grafo dirigido especificada.
      *
@@ -94,87 +94,72 @@ public class GraphMA{
         return matrixAdy [i] [j] != 0;
     }
 
-    public int countIslandsdfs() {
+
+     public int countIslandsdfs() {
         int islandsCount = 0;
         int rows = matrixAdy.length;
         int cols = matrixAdy[0].length;
-        boolean[][] visited = new boolean[rows][cols];
+        boolean[]visited = new boolean[rows];
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (matrixAdy[i][j] != 0 && !visited[i][j]) {
+                if (matrixAdy[i][j] != 0 && !visited[i]) {
                     islandsCount++;
-                    dfs(visited, i, j);
+                    recorrerProfundidad(i,visited);
                 }
             }
         }
 
         return islandsCount;
     }
-    private void dfs(boolean[][] visited, int row, int col) {
-        int rows = this.matrixAdy.length;
-        int cols = this.matrixAdy[0].length;
-        if (row < 0 || row >= rows || col < 0 || col >= cols || this.matrixAdy[row][col] == 0 || visited[row][col]) {
-            return;
-        }
-        visited[row][col] = true; // Mark as visited
-        // Explore adjacent cells
-        dfs(visited, row - 1, col); // Up
-        dfs(visited, row + 1, col); // Down
-        dfs(visited, row, col - 1); // Left
-        dfs(visited, row, col + 1); // Right
-        dfs(visited, row-1, col -1); // Top Right
-        dfs(visited, row-1, col + 1); // Top Left
-        dfs(visited, row+1, col-1); // Bottom Right
-        dfs(visited, row+1, col + 1); // Bottom Right
-    }
- public int countIslandsbfs() {
-        int islandCount = 0;
-        int rows = this.matrixAdy.length;
-        int cols = this.matrixAdy[0].length;
-        boolean[][] visited = new boolean[rows][cols];
 
-        int[][] offsets = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}, {1,1}, {1,-1},{-1,1},{-1,-1}}; // Neighboring cell offsets
-
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if (this.matrixAdy[i][j] > 1 && !visited[i][j]) {
-                    islandCount++;
-                    bfs(visited, i, j, offsets);
-                }
-            }
-        }
-
-        return islandCount;
-    }
-
-    private void bfs(boolean[][] visited, int row, int col, int[][] offsets) {
-        int rows = this.matrixAdy.length;
-        int cols = this.matrixAdy[0].length;
-        Queue<Integer> queue = new Queue<>();
-        int vertex = row * cols + col; // Convert 2D coordinates to 1D representation
-        queue.addToTheQueue(vertex);
-        visited[row][col] = true;
-
-        while (!queue.isEmpty()) {
-            
-            int curr = (int)queue.unqueue();
-            
-            int currRow = curr / cols;
-            int currCol = curr % cols;
-
-            for (int[] offset : offsets) {
-                int newRow = currRow + offset[0];
-                int newCol = currCol + offset[1];
-
-                if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && this.matrixAdy[newRow][newCol] >0 && !visited[newRow][newCol]) {
-                    int newVertex = newRow * cols + newCol; // Convert 2D coordinates to 1D representation
-                    queue.addToTheQueue(newVertex);
-                    visited[newRow][newCol] = true;
-                }
+    
+    public void recorrerProfundidad (int v, boolean [ ] visitados) {
+    //se marca el vértice v como visitado
+    GraphMA g = this;
+    visitados [v] = true;
+    //el tratamiento del vértice consiste únicamente en imprimirlo en pantalla
+    //se examinan los vértices adyacentes a v para continuar el recorrido
+    for (int i = 0; i < g.numEdges; i++) {
+    if ((v != i) && (!visitados [i]) && (g.existeArista (v, i)) )
+    recorrerProfundidad (i, visitados);
+}
+}
+ public int contarIslas1() {
+    boolean[] visitados = new boolean[this.numEdges];
+    int contadorIslas = 0;
+    
+    for (int v = 0; v < this.numEdges; v++) {
+        if (!visitados[v]) {
+            if (amplitud1(v, visitados)) {
+                contadorIslas++;
             }
         }
     }
+    
+    return contadorIslas;
+}
+
+public boolean amplitud1(int v, boolean[] visitados) {
+    Queue<Integer> cola = new Queue<>();
+    boolean nuevaIslaEncontrada = false;
+
+    cola.addToTheQueue(v);
+    visitados[v] = true;
+
+    while (!cola.isEmpty()) {
+        int verticeActual = (int) cola.unqueue();
+        for (int j = 0; j < this.numEdges; j++) {
+            if (verticeActual != j && this.existeArista(verticeActual, j) && !visitados[j]) {
+                cola.addToTheQueue(j);
+                visitados[j] = true;
+                nuevaIslaEncontrada = true;
+            }
+        }
+    }
+
+    return nuevaIslaEncontrada;
+}
      public List<int []>  findBridges(){
         List <int []> list = new List<>();
         int islands = countIslandsdfs();
