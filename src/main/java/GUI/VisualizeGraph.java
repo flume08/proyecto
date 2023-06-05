@@ -307,7 +307,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_backToMainMenuButtonActionPerformed
 
     private void bfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonMouseClicked
-        // TODO add your handling code here:
+        bfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.countIslandsbfs()));
     }//GEN-LAST:event_bfsAmountOfIslesButtonMouseClicked
 
     private void bfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bfsAmountOfIslesButtonActionPerformed
@@ -315,7 +315,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_bfsAmountOfIslesButtonActionPerformed
 
     private void dfsAmountOfIslesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonMouseClicked
-
+        dfsAmountOfIslesOutput.setText(Integer.toString(Principal.globalGraph.countIslandsdfs()));
     }//GEN-LAST:event_dfsAmountOfIslesButtonMouseClicked
 
     private void dfsAmountOfIslesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dfsAmountOfIslesButtonActionPerformed
