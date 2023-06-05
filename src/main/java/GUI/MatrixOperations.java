@@ -29,14 +29,28 @@ public class MatrixOperations extends javax.swing.JFrame {
     public MatrixOperations() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        
+        this.setResizable(false);       
     }
     
-    public boolean checkIfIdIsUnique(List<User> users) {
-        boolean flag = true;   
-        return true;
+    
+    private int getXComponent(List<User> users, List<int []> relations, int id){
+            for(int j=0;j < users.getSize();j++){
+            if ((id == users.accessElement(j).getNumberOfRelation())){
+                return j;
+            }
+        }
+    return 0;
     }
+    
+    private int getYComponent(List<User> users, List<int []> relations,int id){
+            for(int j=0;j < users.getSize();j++){
+            if ((id == users.accessElement(j).getNumberOfRelation())){
+                return j;
+            }
+        }
+    return 0;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -252,61 +266,13 @@ public class MatrixOperations extends javax.swing.JFrame {
     }//GEN-LAST:event_backToGraphVisualizerMouseClicked
 
     private void deleteRelationButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteRelationButtonMouseClicked
+        boolean flag = true;
         userInput = deleteRelationInput.getText();
         if (!userInput.contains(", ")) {           
             deleteRelationInput.setForeground(new java.awt.Color(153, 153, 153));
             deleteRelationInput.setText(manageRelationExample);
             JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
-            
-        } else {
-            String[] userInputArray = userInput.split(", ");
-            
-            try {               
-                userCode = Integer.parseInt(userInputArray[0]);
-                secondUserCode = Integer.parseInt(userInputArray[1]);
-                relationNumber = Integer.parseInt(userInputArray[2]);
-            } catch (Exception e) {                
-                deleteRelationInput.setForeground(new java.awt.Color(153, 153, 153));
-                deleteRelationInput.setText(manageRelationExample);
-                JOptionPane.showMessageDialog(null, "User code and relation number MUST be numbers, and none of them can be missing!");
-            }
-            
-        }  
-    }//GEN-LAST:event_deleteRelationButtonMouseClicked
-
-    private void deleteUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteUserButtonMouseClicked
-        userInput = deleteUserInput.getText();
-        if (!userInput.contains(", ")) {           
-            deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
-            deleteUserInput.setText(manageUserExample);
-            JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
-            
-        } else {            
-            String[] userInputArray = userInput.split(", ");
-            
-            try {               
-                userCode = Integer.parseInt(userInputArray[0]);
-                userName = userInputArray[1];            
-            } catch (Exception e) {                
-                deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
-                deleteUserInput.setText(manageUserExample);
-                JOptionPane.showMessageDialog(null, "Input before the separator must be a valid user code!");
-            }
-            
-            if (userName.charAt(0) != '@') {
-                deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
-                deleteUserInput.setText(manageUserExample);
-                JOptionPane.showMessageDialog(null, "Username must start with @!");
-            }
-        }       
-    }//GEN-LAST:event_deleteUserButtonMouseClicked
-
-    private void addRelationButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addRelationButtonMouseClicked
-        userInput = addRelationInput.getText();
-        if (!userInput.contains(", ")) {           
-            addRelationInput.setForeground(new java.awt.Color(153, 153, 153));
-            addRelationInput.setText(manageRelationExample);
-            JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
+            flag = false;
             
         } else {
             String[] userInputArray = userInput.split(", ");
@@ -319,7 +285,134 @@ public class MatrixOperations extends javax.swing.JFrame {
                 addRelationInput.setForeground(new java.awt.Color(153, 153, 153));
                 addRelationInput.setText(manageRelationExample);
                 JOptionPane.showMessageDialog(null, "User code and relation number MUST be numbers, and none of them can be missing!");
+                flag = false;
             }
+            
+            if (flag) {
+                int x;
+                int y;
+                boolean banner = true;
+                x = getXComponent(Principal.globalUsersList, Principal.globalRelationsList, userCode);
+                y = getYComponent(Principal.globalUsersList, Principal.globalRelationsList, secondUserCode);
+                if (x == 0 || y == 0) {
+                    banner = false;
+                }
+            
+            if (banner) {
+                Principal.globalGraph.deleteArista(userCode, secondUserCode);
+                int relations[] = new int[3];
+                relations[0] = userCode;
+                relations[1] = secondUserCode;
+                relations[2] = relationNumber;
+                for (int i = 0; i < Principal.globalRelationsList.getSize(); i++) {
+                    int listRelations[] = (int[]) Principal.globalRelationsList.accessElement(i);
+                    if (relations[0] == listRelations[0]) {
+                        if (relations[1] == listRelations[1]) {
+                            Principal.globalRelationsList.deleteIndex(i);
+                            break;
+                        }
+                    }
+                    
+                   
+                }
+            }
+        }
+            
+        } 
+    }//GEN-LAST:event_deleteRelationButtonMouseClicked
+
+    private void deleteUserButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteUserButtonMouseClicked
+        boolean flag = true;
+        userInput = deleteUserInput.getText();
+        if (!userInput.contains(", ")) {           
+            deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
+            deleteUserInput.setText(manageUserExample);
+            JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
+            flag = false;
+            
+        } else {            
+            String[] userInputArray = userInput.split(", ");
+            
+            try {               
+                userCode = Integer.parseInt(userInputArray[0]);
+                userName = userInputArray[1];            
+            } catch (Exception e) {                
+                deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
+                deleteUserInput.setText(manageUserExample);
+                JOptionPane.showMessageDialog(null, "Input before the separator must be a valid user code!");
+                flag = false;
+            }
+            
+            if (userName.charAt(0) != '@') {
+                deleteUserInput.setForeground(new java.awt.Color(153, 153, 153));
+                deleteUserInput.setText(manageUserExample);
+                JOptionPane.showMessageDialog(null, "Username must start with @!");
+                flag = false;
+            }
+            
+            if (flag) {
+            boolean banner = true;
+            for (int i = 0; i < Principal.globalUsersList.getSize(); i++) {
+                User user = (User) Principal.globalUsersList.accessElement(i);
+                if (userCode == user.getNumberOfRelation()) {
+                    //Principal.globalGraph.
+                    break;
+                }   
+            }
+
+            if (banner) {
+                User user = new User(userName, userCode);
+                Principal.globalUsersList.addAtTheEndT(user);
+                Principal.globalGraph.insertaVertice(Principal.globalUsersList.getSize());
+            }
+        }
+            
+            
+        }       
+    }//GEN-LAST:event_deleteUserButtonMouseClicked
+
+    private void addRelationButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addRelationButtonMouseClicked
+        boolean flag = true;
+        userInput = addRelationInput.getText();
+        if (!userInput.contains(", ")) {           
+            addRelationInput.setForeground(new java.awt.Color(153, 153, 153));
+            addRelationInput.setText(manageRelationExample);
+            JOptionPane.showMessageDialog(null, "You need to separate the information with ', ' as shown in the example!");
+            flag = false;
+            
+        } else {
+            String[] userInputArray = userInput.split(", ");
+            
+            try {               
+                userCode = Integer.parseInt(userInputArray[0]);
+                secondUserCode = Integer.parseInt(userInputArray[1]);
+                relationNumber = Integer.parseInt(userInputArray[2]);
+            } catch (Exception e) {                
+                addRelationInput.setForeground(new java.awt.Color(153, 153, 153));
+                addRelationInput.setText(manageRelationExample);
+                JOptionPane.showMessageDialog(null, "User code and relation number MUST be numbers, and none of them can be missing!");
+                flag = false;
+            }
+            
+            if (flag) {
+                int x;
+                int y;
+                boolean banner = true;
+                x = getXComponent(Principal.globalUsersList, Principal.globalRelationsList, userCode);
+                y = getYComponent(Principal.globalUsersList, Principal.globalRelationsList, secondUserCode);
+                if (x == 0 || y == 0) {
+                    banner = false;
+                }
+            
+            if (banner) {
+                int relations[] = new int[3];
+                relations[0] = userCode;
+                relations[1] = secondUserCode;
+                relations[2] = relationNumber;
+                Principal.globalRelationsList.addAtTheEndT(relations);
+                Principal.globalGraph.insertArista(userCode, secondUserCode, relationNumber);
+            }
+        }
             
         }  
         
@@ -353,7 +446,23 @@ public class MatrixOperations extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Username must start with @!");
                 flag = false;
             }        
-        } 
+        }
+        if (flag) {
+            boolean banner = true;
+            for (int i = 0; i < Principal.globalUsersList.getSize(); i++) {
+                User user = (User) Principal.globalUsersList.accessElement(i);
+                if (userCode == user.getNumberOfRelation()) {
+                    banner = false;
+                    break;
+                }   
+            }
+
+            if (banner) {
+                User user = new User(userName, userCode);
+                Principal.globalUsersList.addAtTheEndT(user);
+                Principal.globalGraph.insertaVertice(Principal.globalUsersList.getSize());
+            }
+        }
     }//GEN-LAST:event_addUserButtonMouseClicked
 
     private void deleteRelationInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteRelationInputActionPerformed
