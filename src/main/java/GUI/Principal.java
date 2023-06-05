@@ -171,13 +171,12 @@ public class Principal extends javax.swing.JFrame {
     private void continueWithoutImportingButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_continueWithoutImportingButtonMouseClicked
         List[] list = new List[2];
         FileUtil fileUtil = new FileUtil();
-        list = fileUtil.leer_txt("mycompany\\project1\\test.txt");       
+        list = fileUtil.leer_txt("C:\\Users\\carre\\Documents\\NetBeansProjects\\project1\\src\\main\\java\\com\\mycompany\\project1\\test.txt");       
         List usersList = list[0];
         List relationsList = list[1];
         usersList.print();
         relationsList.print();
         GraphMA graph = initializeGraph(usersList, relationsList);
-        graph.imprimirTable();
         globalGraph = graph;
         globalUsersList = usersList;
         globalRelationsList = relationsList;

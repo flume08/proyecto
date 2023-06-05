@@ -18,6 +18,12 @@ import javax.swing.JOptionPane;
  * @author David Mavares
  */
 public class FileUtil {
+    /**
+     * Escribe los elementos de una lista en un archivo de texto.
+     * Cada elemento se escribe en una línea separados por una coma.
+     * 
+     * @param x La lista de elementos a escribir en el archivo.
+     */
     
 public void EscribirTxt(List x){
     String usuarios_actuales="";
@@ -37,6 +43,14 @@ public void EscribirTxt(List x){
 }
     
 }
+
+/**
+     * Lee los datos de un archivo de texto y los guarda en dos listas.
+     * La primera lista contiene los usuarios y la segunda lista contiene las relaciones.
+     * 
+     * @param pat La ruta del archivo a leer.
+     * @return Un arreglo de dos listas, donde la primera lista contiene los usuarios y la segunda lista contiene las relaciones.
+     */
 
 public List[] leer_txt(String pat){
     List x = new List();
@@ -62,7 +76,7 @@ public List[] leer_txt(String pat){
                 }
             }
             
-            String relations_txt_valid = relations_txt.substring(21, relations_txt.length());
+            String relations_txt_valid = relations_txt.substring(20, relations_txt.length());
             
             if (!"".equals(users_txt)){
                 String[] users_split= users_txt.split("\n");

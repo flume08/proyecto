@@ -13,29 +13,57 @@ public class GraphMA{
     private int maxNodes;
     private int numEdges;
     private int [][] matrixAdy;
-
+/**
+     * Crea un nuevo objeto GraphMA con la opción de grafo dirigido especificada.
+     *
+     * @param directed Indica si el grafo es dirigido (true) o no dirigido (false).
+     */
     public GraphMA(boolean directed) {
         this.directed = directed;
         maxNodes = numEdges = 0;
     }
+    /**
+     * Crea un nuevo objeto GraphMA con el número de nodos y la opción de grafo dirigido especificados.
+     *
+     * @param n        El número máximo de nodos en el grafo.
+     * @param directed Indica si el grafo es dirigido (true) o no dirigido (false).
+     */
     public GraphMA (int n, boolean d) {
         directed = d;
         maxNodes = n;
         numEdges = 0;
         matrixAdy = new int[n][n];
 }
+    /**
+     * Inserta una arista en el grafo con el valor de relación especificado.
+     *
+     * @param i                 El índice del nodo origen de la arista.
+     * @param j                 El índice del nodo destino de la arista.
+     * @param relationshipValue El valor de relación asociado a la arista.
+     */
     public void insertArista(int i, int j, int relationshipValue){
         matrixAdy [i][j] = relationshipValue;
         if (!directed){
             matrixAdy [j] [i] = matrixAdy [i] [j];
         }
     }
+    /**
+     * Elimina una arista del grafo.
+     *
+     * @param i El índice del nodo origen de la arista.
+     * @param j El índice del nodo destino de la arista.
+     */
     public void deleteArista(int i, int j){
         matrixAdy [i][j] = 0;
         if (!directed){
             matrixAdy [j] [i] = 0;
         }
     }
+    /**
+     * Inserta un vértice en el grafo.
+     *
+     * @param n El número de vértices a insertar.
+     */
     public void insertaVertice (int n) {
         if ( n > maxNodes - numEdges )
         System.out.println ("Error, se supera el número de nodos máximo");
@@ -47,7 +75,9 @@ public class GraphMA{
         numEdges = numEdges + n;
         }
     }
-    
+    /**
+     * Imprime la matriz de adyacencia del grafo.
+     */
     public void imprimirTable () {
     System.out.println ("La matriz contiene " + numEdges + " vértices: \n");
     for (int i = 0; i < numEdges; i++) {
