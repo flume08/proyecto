@@ -18,7 +18,7 @@ import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleGraph;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
+//import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +60,8 @@ public class VisualizeGraph extends javax.swing.JFrame {
         bfsAmountOfIslesOutput = new javax.swing.JLabel();
         dfsAmountOfIslesButton = new javax.swing.JButton();
         VisualizeGraphButton = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        bridgesVisualizer = new javax.swing.JTextArea();
         backToMainMenuButton = new javax.swing.JButton();
         toGraphOperationsButton = new javax.swing.JButton();
 
@@ -140,7 +142,7 @@ public class VisualizeGraph extends javax.swing.JFrame {
                 identifyBridgesButtonActionPerformed(evt);
             }
         });
-        GraphVisualizeBackground.add(identifyBridgesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 150, 40));
+        GraphVisualizeBackground.add(identifyBridgesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, 150, 40));
 
         bfsAmountOfIslesButton.setBackground(new java.awt.Color(153, 255, 153));
         bfsAmountOfIslesButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -197,7 +199,14 @@ public class VisualizeGraph extends javax.swing.JFrame {
                 VisualizeGraphButtonActionPerformed(evt);
             }
         });
-        GraphVisualizeBackground.add(VisualizeGraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 190, 80));
+        GraphVisualizeBackground.add(VisualizeGraphButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 190, 80));
+
+        bridgesVisualizer.setBackground(new java.awt.Color(255, 255, 255));
+        bridgesVisualizer.setColumns(20);
+        bridgesVisualizer.setRows(5);
+        jScrollPane2.setViewportView(bridgesVisualizer);
+
+        GraphVisualizeBackground.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 250, 340));
 
         background.add(GraphVisualizeBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 810, 500));
 
@@ -281,10 +290,22 @@ public class VisualizeGraph extends javax.swing.JFrame {
     }//GEN-LAST:event_VisualizeGraphButtonActionPerformed
 
     private void identifyBridgesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_identifyBridgesButtonActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_identifyBridgesButtonActionPerformed
 
     private void identifyBridgesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_identifyBridgesButtonMouseClicked
+        List bridges= Principal.globalGraph.findBridges();
+        String q="";
+        List a = Principal.globalUsersList;
+        for (int i =0; i<bridges.getSize();i++){
+            int[] temp=(int[])bridges.accessElement(i);
+            int x;
+            int o;
+            x =((User) a.accessElement(temp[0])).getNumberOfRelation();
+            o= ((User)a.accessElement(temp[1])).getNumberOfRelation();
+            q+="Users: "+x+","+o+"\n";
+        }
+        bridgesVisualizer.setText(q);
 
     }//GEN-LAST:event_identifyBridgesButtonMouseClicked
 
@@ -371,11 +392,13 @@ public class VisualizeGraph extends javax.swing.JFrame {
     private javax.swing.JPanel background;
     private javax.swing.JButton bfsAmountOfIslesButton;
     private javax.swing.JLabel bfsAmountOfIslesOutput;
+    private javax.swing.JTextArea bridgesVisualizer;
     private javax.swing.JPanel cosmeticItem;
     private javax.swing.JButton dfsAmountOfIslesButton;
     private javax.swing.JLabel dfsAmountOfIslesOutput;
     private javax.swing.JButton identifyBridgesButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel matrixVisualizeBox;
     private javax.swing.JButton toGraphOperationsButton;
     // End of variables declaration//GEN-END:variables
